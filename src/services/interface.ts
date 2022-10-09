@@ -1,10 +1,13 @@
 import { Request } from 'express';
-import { ObjectId } from 'mongoose';
+import { ObjectId, Model, Document } from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 export interface IUser {
   name: string;
   about: string;
   avatar?: string;
+  email: string,
+  password: string,
 }
 
 export interface ICard {
@@ -24,4 +27,13 @@ export interface IUserRequest extends Request {
 export interface IError extends Error {
   statusCode: number;
   code?: number;
+}
+
+export interface IUserModel extends Model<IUser> {
+  // eslint-disable-next-line no-unused-vars
+  findUserByCredentials: (email: string, password: string) => Promise<Document<IUser>>
+}
+
+export interface IAuthRequest extends Request {
+  user?: string | jwt.JwtPayload;
 }

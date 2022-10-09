@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import urlRegexp from '../helpers/urlRegexp';
 import { ICard } from '../services/interface';
 
 const cardsSchema = new Schema<ICard>({
@@ -11,6 +12,10 @@ const cardsSchema = new Schema<ICard>({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator: (v: string) => urlRegexp.test(v),
+      message: 'Некорректный формат ссылки',
+    },
   },
   owner: {
     type: Schema.Types.ObjectId,
