@@ -19,7 +19,7 @@ export default (req: IAuthRequest, res: Response, next: NextFunction) => {
   try {
     payload = jwt.verify(token, 'super-strong-secret');
   } catch (err) {
-    throw new UnauthorizedError('Проблемы с токеном ,lz');
+    throw new UnauthorizedError('Проблемы с токеном');
   }
 
   req.user = payload;
